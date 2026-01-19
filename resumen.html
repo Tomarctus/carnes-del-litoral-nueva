@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Confirmar pedido — Carnes del Litoral</title>
+  <style>
+    *{ box-sizing:border-box; }
+    body{
+      margin:0; background:#000; color:#fff; font-family: Arial, sans-serif;
+      padding:18px 16px 28px;
+    }
+    .wrap{ max-width:420px; margin:0 auto; }
+    .logo{ width:140px; display:block; margin: 10px auto 14px; }
+    h2{ text-align:center; margin:0 0 14px; font-size:20px; }
+    .card{
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+    .row{ margin: 8px 0; }
+    .k{ color: rgba(255,255,255,0.75); }
+    .v{ font-weight:800; }
+    .btn{
+      width:100%;
+      border:none;
+      padding: 16px 14px;
+      font-size: 18px;
+      font-weight: 800;
+      border-radius: 12px;
+      cursor:pointer;
+      margin-top: 10px;
+    }
+    .yes{ background:#19a34a; color:#fff; }
+    .no{ background:#d70000; color:#fff; }
+    .btn:active{ opacity:.85; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <img src="logo.png" class="logo" alt="Carnes del Litoral" />
+    <h2>Confirmar pedido</h2>
+
+    <section class="card" id="summary"></section>
+
+    <button class="btn yes" id="btnYes">Sí, es correcto</button>
+    <button class="btn no" id="btnNo">No, volver</button>
+  </main>
+
+<script>
+  const STORAGE_KEY = "carnes_pedido_temp";
+  const params = new URLSearchParams(window.location.search);
+
+  const nombre = params.get("nombre") || "";
+  const direccion = params.get("direccion") || "";
+  const locprov = params.get("locprov") || "";
+  const vacuno = params.get("vacuno") || "0";
+  const cerdo = params.get("cerdo") || "0";
+  const obs = params.get("obs") || "";
+
+  document.getElementById("summary").innerHTML = `
+    <div class="row"><span class="k">👤 Nombre:</span> <span class="v">${escapeHtml(nombre)}</span></div>
+    <div class="row"><span class="k">📍 Dirección:</span> <span class="v">${escapeHtml(direccion)}</span></div>
+    <div class="row"><span class="k">🏙 Localidad + Provincia:</span> <span class="v">${escapeHtml(locprov)}</span></div>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.14);margin:12px 0;">
+    <div class="row"><span class="k">🐂 Vacuno:</span> <span class="v">${escapeHtml(vacuno)} medias res</span></div>
+    <div class="row"><span class="k">🐖 Cerdo:</span> <span class="v">${escapeHtml(cerdo)} medias res</span></div>
+    <div class="row"><span class="k">📝 Observaciones:</span> <span class="v">${escapeHtml(obs || "—")}</span></div>
+    <div class="row" style="margin-top:14px;color:rgba(255,255,255,0.75);font-size:13px;">
+      ¿Es correcto el pedido?
+    </div>
+  `;
+
+  // WhatsApp destino de prueba (tu número)
+  const telefono = "5491122551700";
+
+  function buildMessage(){
+    let msg = `📦 NUEVO PEDIDO\n\n`;
+    msg += `👤 Nombre: ${nombre}\n`;
+    msg += `📍 Dirección: ${direccion}\n`;
+    msg += `🏙 Localidad + Provincia: ${locprov}\n\n`;
+    msg += `🐂 Vacuno: ${vacuno} medias res\n`;
+    msg += `🐖 Cerdo: ${cerdo} medias res\n`;
+    msg += `📝 Observaciones: ${obs || "—"}\n`;
+    return msg;
+  }
+
+  document.getElementById("btnYes").addEventListener("click", () => {
+    // si confirma, borramos el borrador
+    localStorage.removeItem(STORAGE_KEY);
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(buildMessage())}`;
+    window.location.href = url;
+  });
+
+  document.getElementById("btnNo").addEventListener("click", () => {
+    // vuelve con datos cargados (ya están guardados en localStorage desde pedido.js)
+    window.location.href = "pedido.html";
+  });
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+    }[c]));
+  }
+</script>
+</body>
+</html>

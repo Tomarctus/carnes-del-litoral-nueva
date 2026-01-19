@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panel — Carnes del Litoral</title>
+  <link rel="stylesheet" href="panel.css" />
+
+  <!-- QR Code (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+  <main class="wrap">
+    <img src="logo.png" class="logo" alt="Carnes del Litoral" />
+
+    <section class="card">
+      <h3>Link público</h3>
+      <input id="publicLink" class="input" type="text" readonly />
+      <button class="btn" id="btnCopyLink">Copiar link</button>
+    </section>
+
+    <section class="card">
+      <h3>Código QR</h3>
+      <div id="qrBox" class="qrBox"></div>
+      <button class="btn" id="btnCopyMsg">Copiar mensaje para enviar</button>
+    </section>
+
+    <p class="hint">
+      Compartí el link o el QR con tus clientes para que pidan por WhatsApp.
+    </p>
+  </main>
+
+  <script src="panel.js"></script>
+</body>
+</html>

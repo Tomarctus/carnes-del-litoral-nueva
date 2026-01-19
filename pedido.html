@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carnes del Litoral — Pedido</title>
+  <link rel="stylesheet" href="pedido.css" />
+</head>
+<body>
+
+  <main class="container">
+    <img src="logo.png" class="logo" alt="Carnes del Litoral" />
+    <h2 class="title">Realizar pedido</h2>
+
+    <section class="card">
+      <div class="prod">
+        <img src="vacuno.png" class="prod-icon" alt="Vacuno" />
+        <div class="prod-title">Media res vacuna</div>
+      </div>
+      <label class="label">Cantidad (0 a 9999)</label>
+      <input id="vacuno" class="qty" type="text" inputmode="numeric" placeholder="0" />
+    </section>
+
+    <section class="card">
+      <div class="prod">
+        <img src="cerdo.png" class="prod-icon" alt="Cerdo" />
+        <div class="prod-title">Media res de cerdo</div>
+      </div>
+      <label class="label">Cantidad (0 a 9999)</label>
+      <input id="cerdo" class="qty" type="text" inputmode="numeric" placeholder="0" />
+    </section>
+
+    <section class="card">
+      <label class="label">Nombre *</label>
+      <input id="nombre" class="text" type="text" placeholder="Tu nombre" />
+
+      <label class="label">Dirección de entrega *</label>
+      <input id="direccion" class="text" type="text" placeholder="Calle y número" />
+
+      <label class="label">Localidad + Provincia *</label>
+      <input id="locprov" class="text" type="text" placeholder="Ej: Concepción del Uruguay, Entre Ríos" />
+
+      <label class="label">Observaciones (opcional)</label>
+      <textarea id="obs" class="text area" rows="3" placeholder="Ej: horario, cortes especiales, etc."></textarea>
+    </section>
+
+    <button id="btnContinuar" class="btn">CONTINUAR</button>
+
+    <p class="hint">
+      * El precio se confirma por WhatsApp.
+    </p>
+  </main>
+
+  <script src="pedido.js"></script>
+</body>
+</html>
