@@ -17,14 +17,18 @@ function onlyDigitsMax4(inputEl){
 }
 
 function saveDraft(){
-  const data = {
-    vacuno: elVacuno.value,
-    cerdo: elCerdo.value,
-    nombre: elNombre.value,
-    direccion: elDir.value,
-    locprov: elLoc.value,
-    obs: elObs.value
-  };
+  // Guardar por si vuelve con NO
+saveDraft();
+
+const data = {
+  vacuno: elVacuno.value,
+  cerdo: elCerdo.value,
+  nombre: elNombre.value,
+  razon: elRazon.value,
+  direccion: elDir.value,
+  locprov: elLoc.value,
+  obs: elObs.value
+};
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
@@ -47,8 +51,8 @@ function loadDraft(){
 onlyDigitsMax4(elVacuno);
 onlyDigitsMax4(elCerdo);
 
-[elNombre, elDir, elLoc, elObs].forEach(el => {
-  el.addEventListener("input", saveDraft);
+[elNombre, elRazon, elDir, elLoc, elObs].forEach(el => {
+ el.addEventListener("input", saveDraft);
 });
 
 loadDraft();
@@ -70,16 +74,17 @@ document.getElementById("btnContinuar").addEventListener("click", () => {
  // Guardar por si vuelve con NO
 saveDraft();
 
-const data = {
-  vacuno: elVacuno.value,
-  cerdo: elCerdo.value,
-  nombre: elNombre.value,
-  razon: elRazon.value,
-  direccion: elDir.value,
-  locprov: elLoc.value,
-  obs: elObs.value
-};
+const qs =
+  `nombre=${encodeURIComponent(nombre)}` +
+  `&razon=${encodeURIComponent(razon)}` +
+  `&direccion=${encodeURIComponent(direccion)}` +
+  `&locprov=${encodeURIComponent(locprov)}` +
+  `&vacuno=${encodeURIComponent(vacuno)}` +
+  `&cerdo=${encodeURIComponent(cerdo)}` +
+  `&obs=${encodeURIComponent(obs)}`;
+
 window.location.href = `resumen.html?${qs}`;
 });
+
 
 
