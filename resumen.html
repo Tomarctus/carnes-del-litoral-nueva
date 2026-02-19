@@ -55,6 +55,7 @@
   const params = new URLSearchParams(window.location.search);
 
   const nombre = params.get("nombre") || "";
+  const razon = params.get("razon") || "";
   const direccion = params.get("direccion") || "";
   const locprov = params.get("locprov") || "";
   const vacuno = params.get("vacuno") || "0";
@@ -63,6 +64,7 @@
 
   document.getElementById("summary").innerHTML = `
     <div class="row"><span class="k">👤 Nombre:</span> <span class="v">${escapeHtml(nombre)}</span></div>
+    <div class="row"><span class="k">🏢 Razón social:</span> <span class="v">${escapeHtml(razon)}</span></div>
     <div class="row"><span class="k">📍 Dirección:</span> <span class="v">${escapeHtml(direccion)}</span></div>
     <div class="row"><span class="k">🏙 Localidad + Provincia:</span> <span class="v">${escapeHtml(locprov)}</span></div>
     <hr style="border:none;border-top:1px solid rgba(255,255,255,0.14);margin:12px 0;">
@@ -80,6 +82,7 @@
   function buildMessage(){
     let msg = `📦 NUEVO PEDIDO\n\n`;
     msg += `👤 Nombre: ${nombre}\n`;
+    msg += `🏢 Razón social: ${razon}\n`;
     msg += `📍 Dirección: ${direccion}\n`;
     msg += `🏙 Localidad + Provincia: ${locprov}\n\n`;
     msg += `🐂 Vacuno: ${vacuno} medias res\n`;
@@ -108,4 +111,5 @@
 </script>
 </body>
 </html>
+
 
