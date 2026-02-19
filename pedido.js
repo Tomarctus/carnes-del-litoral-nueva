@@ -17,24 +17,22 @@ function onlyDigitsMax4(inputEl){
 }
 
 function saveDraft(){
-  // Guardar por si vuelve con NO
-saveDraft();
-
-const data = {
-  vacuno: elVacuno.value,
-  cerdo: elCerdo.value,
-  nombre: elNombre.value,
-  razon: elRazon.value,
-  direccion: elDir.value,
-  locprov: elLoc.value,
-  obs: elObs.value
-};
+  const data = {
+    vacuno: elVacuno.value,
+    cerdo: elCerdo.value,
+    nombre: elNombre.value,
+    razon: elRazon.value,
+    direccion: elDir.value,
+    locprov: elLoc.value,
+    obs: elObs.value
+  };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
 function loadDraft(){
   const raw = localStorage.getItem(STORAGE_KEY);
   if(!raw) return;
+
   try{
     const data = JSON.parse(raw);
     elVacuno.value = data.vacuno || "";
@@ -42,7 +40,6 @@ function loadDraft(){
     elNombre.value = data.nombre || "";
     elRazon.value  = data.razon || "";
     elDir.value    = data.direccion || "";
-
     elLoc.value    = data.locprov || "";
     elObs.value    = data.obs || "";
   }catch(e){}
@@ -52,7 +49,7 @@ onlyDigitsMax4(elVacuno);
 onlyDigitsMax4(elCerdo);
 
 [elNombre, elRazon, elDir, elLoc, elObs].forEach(el => {
- el.addEventListener("input", saveDraft);
+  el.addEventListener("input", saveDraft);
 });
 
 loadDraft();
@@ -67,24 +64,25 @@ document.getElementById("btnContinuar").addEventListener("click", () => {
   const obs = elObs.value.trim();
 
   if(!nombre || !razon || !direccion || !locprov){
-  alert("Completá Nombre, Razón social, Dirección y Localidad+Provincia.");
-  return;
-}
+    alert("Completá Nombre, Razón social, Dirección y Localidad+Provincia.");
+    return;
+  }
 
- // Guardar por si vuelve con NO
-saveDraft();
+  // Guardar por si vuelve con NO
+  saveDraft();
 
-const qs =
-  `nombre=${encodeURIComponent(nombre)}` +
-  `&razon=${encodeURIComponent(razon)}` +
-  `&direccion=${encodeURIComponent(direccion)}` +
-  `&locprov=${encodeURIComponent(locprov)}` +
-  `&vacuno=${encodeURIComponent(vacuno)}` +
-  `&cerdo=${encodeURIComponent(cerdo)}` +
-  `&obs=${encodeURIComponent(obs)}`;
+  const qs =
+    `nombre=${encodeURIComponent(nombre)}` +
+    `&razon=${encodeURIComponent(razon)}` +
+    `&direccion=${encodeURIComponent(direccion)}` +
+    `&locprov=${encodeURIComponent(locprov)}` +
+    `&vacuno=${encodeURIComponent(vacuno)}` +
+    `&cerdo=${encodeURIComponent(cerdo)}` +
+    `&obs=${encodeURIComponent(obs)}`;
 
-window.location.href = `resumen.html?${qs}`;
+  window.location.href = `resumen.html?${qs}`;
 });
+
 
 
 
