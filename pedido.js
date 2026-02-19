@@ -67,10 +67,10 @@ document.getElementById("btnContinuar").addEventListener("click", () => {
   return;
 }
 
-  // Guardar por si vuelve con NO
-  saveDraft();
+ // Guardar por si vuelve con NO
+saveDraft();
 
-  const data = {
+const data = {
   vacuno: elVacuno.value,
   cerdo: elCerdo.value,
   nombre: elNombre.value,
@@ -79,6 +79,7 @@ document.getElementById("btnContinuar").addEventListener("click", () => {
   locprov: elLoc.value,
   obs: elObs.value
 };
-  window.location.href = `resumen.html?${qs}`;
+window.location.href = `resumen.html?${qs}`;
 });
+
 
